@@ -4,7 +4,7 @@ const request = indexedDB.open('fictional-octo-memory', 1);
 
 request.onupgradeneeded = function(event) {
     const db = event.target.result;
-    db.createObjectStore('new_trans', { autoIncrement: true });
+    db.createObjectStore('new_transaction', { autoIncrement: true });
 };
 
 request.onsuccess = function(event) {
@@ -19,16 +19,16 @@ request.onerror = function(event) {
 };
 
 const saveRecord = record => {
-    const transaction = db.transaction(['new_trans'], 'readwrite');
+    const transaction = db.transaction(['new_transaction'], 'readwrite');
 
-    const transObjectStore = transaction.objectStore('new_trans');
+    const transObjectStore = transaction.objectStore('new_transaction');
 
     transObjectStore.add(record);
 };
 
 const uploadTrans = () => {
-    const transaction = db.transaction(['new_trans'], 'readwrite');
-    const transObjectStore = transaction.objectStore('new_trans');
+    const transaction = db.transaction(['new_transaction'], 'readwrite');
+    const transObjectStore = transaction.objectStore('new_transaction');
 
     const getAll = transObjectStore.getAll();
 
@@ -48,9 +48,9 @@ const uploadTrans = () => {
                         throw new Error(serverResponse);
                     }
 
-                    const transaction = db.transaction(['new_trans'], 'readwrite');
+                    const transaction = db.transaction(['new_transaction'], 'readwrite');
 
-                    const transObjectStore = transaction.objectStore('new_trans');
+                    const transObjectStore = transaction.objectStore('new_transaction');
 
                     transObjectStore.clear();
 
