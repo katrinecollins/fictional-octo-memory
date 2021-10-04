@@ -47,17 +47,6 @@ self.addEventListener('activate', function (e) {
 
 self.addEventListener('fetch', function (e) {
     console.log('fetch request : ' + e.request.url);
-    // e.respondWith(
-    //     caches.match(e.request).then(function (request) {
-    //         if (request) {
-    //             console.log('responding with cache : ' + e.request.url)
-    //             return request
-    //         } else {
-    //             console.log('file is not cached, fetching : ' + e.request.url)
-    //             return fetch(e.request)
-    //         }
-    //     })
-    // )
     e.respondWith(
         fetch(e.request).catch(function() {
           return caches.match(e.request).then(function(response) {
